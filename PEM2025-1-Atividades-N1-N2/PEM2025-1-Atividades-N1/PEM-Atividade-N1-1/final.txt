@@ -1,0 +1,141 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_ALUNOS 50
+
+struct Notas {
+    float PE[4];
+    float AC[5];
+    float PP[10];
+    float EB[3];
+    float mediaFinal; 
+
+struct Aluno {
+    char nome[40];
+    struct Notas notas;
+};
+
+
+void calcularMediaFinal(struct Aluno *aluno) {
+    float somaPE = 0.0, somaAC = 0.0, somaPP = 0.0, somaEB = 0.0;
+
+   
+    for (int i = 0; i < 4; i++) {
+        somaPE += aluno->notas.PE[i];
+    }
+
+   
+    for (int i = 0; i < 5; i++) {
+        somaAC += aluno->notas.AC[i];
+    }
+
+   
+    for (int i = 0; i < 10; i++) {
+        somaPP += aluno->notas.PP[i];
+    }
+
+    
+    for (int i = 0; i < 3; i++) {
+        somaEB += aluno->notas.EB[i];
+    }
+
+    
+    float mediaPE = somaPE / 4;
+    float mediaAC = somaAC / 5;
+    float mediaPP = somaPP / 10;
+    float mediaEB = somaEB / 3;
+
+    
+    aluno->notas.mediaFinal = (mediaPE * 0.3) + (mediaAC * 0.1) + (mediaPP * 0.4) + (mediaEB * 0.2);
+}
+
+
+void ordenarAlunos(struct Aluno alunos[], int n) {
+    struct Aluno temp;
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (alunos[j].notas.mediaFinal < alunos[j + 1].notas.mediaFinal) {
+                
+                temp = alunos[j];
+                alunos[j] = alunos[j + 1];
+                alunos[j + 1] = temp;
+            }
+        }
+    }
+}
+
+int main() {
+    struct Aluno alunos[MAX_ALUNOS];
+    int i = 0;
+    char opcao;
+
+    while (i < MAX_ALUNOS) {
+        printf("Nome do Aluno: ");
+        fgets(alunos[i].nome, sizeof(alunos[i].nome), stdin);
+        alunos[i].nome[strcspn(alunos[i].nome, "\n")] = 0; 
+
+        printf("Insira 4 notas de PE:\n");
+        for (int j = 0; j < 4; j++) {
+            scanf("%f", &alunos[i].notas.PE[j]);
+            while (alunos[i].notas.PE[j] < 0 || alunos[i].notas.PE[j] > 10) {
+                printf("Nota invalida, digite novamente: ");
+                scanf("%f", &alunos[i].notas.PE[j]);
+            }
+        }
+
+        printf("Insira 5 notas de AC:\n");
+        for (int j = 0; j < 5; j++) {
+            scanf("%f", &alunos[i].notas.AC[j]);
+            while (alunos[i].notas.AC[j] < 0 || alunos[i].notas.AC[j] > 10) {
+                printf("Nota invalida, digite novamente: ");
+                scanf("%f", &alunos[i].notas.AC[j]);
+            }
+        }
+
+        printf("Insira 10 notas de PP:\n");
+        for (int j = 0; j < 10; j++) {
+            scanf("%f", &alunos[i].notas.PP[j]);
+            while (alunos[i].notas.PP[j] < 0 || alunos[i].notas.PP[j] > 10) {
+                printf("Nota invalida, digite novamente: ");
+                scanf("%f", &alunos[i].notas.PP[j]);
+            }
+        }
+
+        printf("Insira 3 notas de EB:\n");
+        for (int j = 0; j < 3; j++) {
+            scanf("%f", &alunos[i].notas.EB[j]);
+            while (alunos[i].notas.EB[j] < 0 || alunos[i].notas.EB[j] > 10) {
+                printf("Nota invalida, digite novamente: ");
+                scanf("%f", &alunos[i].notas.EB[j]);
+            }
+        }
+
+       
+        calcularMediaFinal(&alunos[i]);
+
+        while (getchar() != '\n'); 
+
+        
+        printf("Deseja cadastrar outro aluno? (1 para sim, 0 para encerrar): ");
+        opcao = getchar();
+        while (getchar() != '\n'); 
+
+        if (opcao == '0') {
+            i++; 
+            break; 
+        }
+
+        i++;
+    }
+
+   
+    ordenarAlunos(alunos, i);
+
+    
+    printf("\nRanking dos 15 primeiros colocados:\n");
+    for (int j = 0; j < 15 && j < i; j++) {
+        printf("%d. %s - Media Final: %.2f\n", j + 1, alunos[j].nome, alunos[j].notas.mediaFinal);
+    }
+
+    return 0;
+}
