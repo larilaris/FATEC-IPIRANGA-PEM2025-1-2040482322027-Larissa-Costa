@@ -1,3 +1,15 @@
+/*-------------------------------------------------------*
+*                      FATEC Ipiranga                    *
+* Disciplina: Programaçao Estruturada e Modular          *
+*          Prof. Veríssimo                               *
+*--------------------------------------------------------*
+* Objetivo do Programa: Implmentação de vetor para       *
+* receber as notas  e calssificação dos alunos           *
+* Data - 28/02/2025                                      * 
+* Autor: Larissa Costa                                   *
+*--------------------------------------------------------*/
+
+
 #include <stdio.h>
 #include <string.h>
 
