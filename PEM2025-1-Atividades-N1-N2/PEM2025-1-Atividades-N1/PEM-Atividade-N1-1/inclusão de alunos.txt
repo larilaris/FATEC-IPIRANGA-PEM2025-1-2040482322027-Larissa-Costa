@@ -1,0 +1,107 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_ALUNOS 50
+
+
+    struct Notas{
+        float notas;
+        float PE[4];
+        float AC[5];
+        float PP[10];
+        float EB[3];
+    };
+    struct Aluno{
+        char nome[40];
+        struct Notas notas;
+
+    };
+
+int main()
+{
+
+    char aluno[40];
+      float soma = 0.0;
+      float media;
+
+
+
+        struct Aluno alunos[MAX_ALUNOS];
+        int i=0;
+
+while (i < MAX_ALUNOS)
+{
+          printf("Nome do Aluno: ");
+          fgets(alunos[i].nome, sizeof(alunos[i].nome), stdin);
+
+           printf("Insira 4 notas de PE:\n ");
+          for(int j = 0; j< 4; j++)
+          {
+               scanf("%f", &alunos[i].notas.PE[j]);
+
+              while (alunos[i].notas.PE[j] < 0 || alunos[i].notas.PE[j] > 10)
+              {
+                printf("Nota invalida, digite novamente: ");
+                  scanf("%f", &alunos[i].notas.PE[j]);
+              }
+                 soma+=(alunos[i].notas.PE[j]);
+
+          } 
+              media = soma / 4;
+
+
+            printf("Insira 5 notas de AC:\n ");
+          for(int j = 0; j< 5; j++)
+          {
+
+               scanf("%f", &alunos[i].notas.AC[j]);
+
+              while (alunos[i].notas.AC[j] < 0 || alunos[i].notas.AC[j] > 10)
+              {
+                printf("Nota invalida, digite novamente:\n");
+                  scanf("%f", &alunos[i].notas.AC[j]);
+              }
+               soma+=(alunos[i].notas.AC[j]);
+
+          }
+       media = soma / 5;
+
+            printf("Insira 10 notas de PP:\n ");
+        for(int j = 0; j< 10; j++)
+        {
+           scanf("%f", &alunos[i].notas.PP[j]);
+
+          while(alunos[i].notas.PP[j] < 0 || alunos[i].notas.PP[j] > 10)
+          {
+            printf("Nota invalida, digite novamente: \n");
+              scanf("%f", &alunos[i].notas.PP[j]);
+          }
+            soma+=(alunos[i].notas.PP[j]);
+
+      }
+        media = soma / 10;
+
+    printf("Insira 3 notas de EB:\n");
+      for(int j = 0; j< 3; j++)
+      {
+
+           scanf("%f", &alunos[i].notas.EB[j]);
+
+          while(alunos[i].notas.EB[j] < 0 || alunos[i].notas.EB[j] > 10)
+          {
+            printf("Nota invalida, digite novamente: ");
+               scanf("%f", &alunos[i].notas.EB[j]);
+          }
+          soma+=(alunos[i].notas.EB[j]);
+      } 
+      media = soma / 3;
+
+    while (getchar() != '\n');
+    
+    i++;
+}
+
+
+
+    return 0;
+}
